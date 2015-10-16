@@ -1,6 +1,25 @@
 xLights/Nutcracker Version 4.x Linux build instructions
 ------------------------------------------------------------------------------
 
+Linux Binary Packages
+---------------------
+
+Debian based packages available:
+These packages will work on Ubuntu or other Debian based distros.
+(Tested with Ubuntu and Debian Jessie)
+
+echo "deb [arch=amd64] https://region-a.geo-1.objects.hpcloudsvc.com/v1/11386057953142/aptly.xlights/aptly jessie main" | sudo tee /etc/apt/sources.list.d/xlights.list
+sudo apt-get update
+sudo apt-get install -y --force-yes xlights
+
+Now you should have xlights available in your favorite X Window system.
+Currently one issue is the effect icon size is super small. (https://github.com/smeighan/xLights/issues/380)
+To work around this default behavior just goto the xLights Menu for Settings->Tool Icon Size->Medium
+This will allow you to be able to see the effects and use them.
+
+Build Instructions
+------------------
+
 xLights/Nutcracker can be built and run on Linux, Mac OS/X, or Windows. This
 document describes how **developers** should set up their tool chain to build
 xLights/Nutcracker on Linux.
@@ -17,7 +36,7 @@ These instructions have been tested on the following distributions:
   - Ubuntu 14.10
   - Fedora 21
 
-Instructions for other Linux distributions will vary. 
+Instructions for other Linux distributions will vary.
 
   a) Using Software Manager (or apt-get or rpm), install the following packages.
      (Fedora packages will be named differently and have 'devel' instead of 'dev'
@@ -92,7 +111,7 @@ using Code::Blocks, proceed to step 'e'.:
          $ cd xLights
          $ make -f xLights.cbp.mak clean
          $ make -f xLights.cbp.mak CFLAGS="-std=gnu++11" releaselinux
- 
+
      You may get some compiler warnings, however, the executable 'xLights'
      should get built in the ./bin directory.  The proper dependencies are
      not currently setup in the makefile to trigger rebuilds when some
@@ -110,12 +129,12 @@ using Code::Blocks, proceed to step 'e'.:
      manager as long as it is version 12.11 or later.  Otherwise,
      you can try downloading it directly from the Code::Blocks web site:
         http://www.codeblocks.org/downloads
-     Also, you may need to install libwxsmithlib0 to 
+     Also, you may need to install libwxsmithlib0 to
      enable visual layout.
 
      Now you are ready to use Code::Blocks to build xLights
      by double-clicking on the xLights.cbp file.
-     In order for the double-click to work, you may need 
+     In order for the double-click to work, you may need
      to first right-click on the cbp file, select properties,
      and uncheck the box indicating that the file is runnable.
      Make sure you set the target to "Release Linux" before you build.

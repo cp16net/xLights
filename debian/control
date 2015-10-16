@@ -1,0 +1,18 @@
+Source: xlights
+Maintainer: cp16net <cp16net@gmail.com>
+Section: misc
+Priority: optional
+Standards-Version: 3.9.2
+Build-Depends: debhelper (>= 9)
+
+Package: xlights
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: scheduling, editor, and player for light shows
+ This is a scheduling program. xLights has usb and E1.31
+ drivers. You can create playlists, schedule them, test your hardware,
+ convert between different sequencers. xLights also now has Nutcracker
+ version 3 included as a tab. This is the newest nutcracker. The entire
+ Nutcracker software has been rewritten from php into C++ plus
+ wxWidgets.
+ 

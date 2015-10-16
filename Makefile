@@ -1,4 +1,3 @@
-
 INSTALL_ROOT    =
 PREFIX          = /usr/local
 
@@ -9,7 +8,7 @@ IGNORE_WARNINGS = -Wno-reorder -Wno-sign-compare -Wno-unused-variable -Wno-switc
 MKDIR           = mkdir -p
 CHK_DIR_EXISTS  = test -d
 INSTALL_PROGRAM = install -m 755 -p
-DEL_FILE        = rm -f
+DEL_FILE        = rm -rf
 ICON_SIZES      = 16x16 32x32 64x64 256x256
 
 SUBDIRS         = xLights
@@ -41,18 +40,23 @@ $(addsuffix _clean,$(SUBDIRS)):
 #############################################################################
 
 install:
-	@$(CHK_DIR_EXISTS) $(INSTALL_ROOT)/${PREFIX}/bin || $(MKDIR) $(INSTALL_ROOT)/${PREFIX}/bin
+	$(MKDIR) $(INSTALL_ROOT)/${PREFIX}/bin
+	$(MKDIR) $(INSTALL_ROOT)/${PREFIX}/share/applications/
 	-$(INSTALL_PROGRAM) bin/xLights $(INSTALL_ROOT)/${PREFIX}/bin/xLights
 	-$(INSTALL_PROGRAM) bin/xlights.desktop $(INSTALL_ROOT)/${PREFIX}/share/applications/xlights.desktop
 	install -d -m 755 $(INSTALL_ROOT)/${PREFIX}/share/xLights/piano
 	cp -r piano/* $(INSTALL_ROOT)/${PREFIX}/share/xLights/piano
 	install -d -m 755 $(INSTALL_ROOT)/${PREFIX}/share/xLights/songs
 	cp -r songs/* $(INSTALL_ROOT)/${PREFIX}/share/xLights/songs
-	$(foreach size, $(ICON_SIZES), install -D -m 644 xLights/Images.xcassets/AppIcon.appiconset/$(size).png $(INSTALL_ROOT)/${PREFIX}/share/icons/hicolor/$(size)/apps/xlights.png ; )
+	$(foreach size, $(ICON_SIZES), $(MKDIR) $(INSTALL_ROOT)/${PREFIX}/share/icons/hicolor/$(size)/apps ; )
+	$(foreach size, $(ICON_SIZES), install -m 644 xLights/Images.xcassets/AppIcon.appiconset/$(size).png $(INSTALL_ROOT)/${PREFIX}/share/icons/hicolor/$(size)/apps/xlights.png ; )
 
 uninstall:
 	-$(DEL_FILE) $(INSTALL_ROOT)/${PREFIX}/bin/xLights
 	-$(DEL_FILE) $(INSTALL_ROOT)/${PREFIX}/share/applications/xlights.desktop
+	-$(DEL_FILE) $(INSTALL_ROOT)/${PREFIX}/share/xLights/piano
+	-$(DEL_FILE) $(INSTALL_ROOT)/${PREFIX}/share/xLights/songs
+	$(foreach size, $(ICON_SIZES), $(DEL_FILE) $(INSTALL_ROOT)/${PREFIX}/share/icons/hicolor/$(size)/apps/xlights.png; )
 
 #############################################################################
 

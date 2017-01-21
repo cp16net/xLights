@@ -35,6 +35,7 @@ class FirePanel: public wxPanel
 		wxSlider* Slider_Fire_GrowthCycles;
 		wxStaticText* StaticText132;
 		wxCheckBox* CheckBox_Fire_Candle;
+        wxTextCtrl* TextCtrl_Fire_HueShift;
 		wxTextCtrl* TextCtrl_Fire_GrowthCycles;
 		wxBitmapButton* BitmapButton_Fire_Candle;
 		ValueCurveButton* BitmapButton_Fire_HueShiftVC;
@@ -62,7 +63,7 @@ class FirePanel: public wxPanel
 		static const long ID_BITMAPBUTTON_CHECKBOX_Fire_GrowFire;
 		static const long ID_CHECKBOX_Fire_GrowWithMusic;
 		static const long ID_BITMAPBUTTON_Fire_GrowWithMusic;
-        static const long ID_CHECKBOX_CheckBox_Fire_Candle;
+        static const long ID_CHECKBOX_Fire_Candle;
         static const long ID_BITMAPBUTTON_CheckBox_Fire_Candle;
 		static const long ID_CHOICE_Fire_Location;
 		//*)
@@ -77,7 +78,8 @@ class FirePanel: public wxPanel
 		void UpdateLinkedTextCtrl(wxScrollEvent& event);
 		void UpdateLinkedSlider(wxCommandEvent& event);
 		void OnLockButtonClick(wxCommandEvent& event);
-		void OnCheckBox_Fire_GrowWithMusicClick(wxCommandEvent& event);
+        void OnCheckBox_Fire_GrowWithMusicClick(wxCommandEvent& event);
+        void OnCheckBox_Fire_Candle(wxCommandEvent& event);
         void UpdateLinkedTextCtrlVC(wxScrollEvent& event);
         void UpdateLinkedTextCtrlFloatVC(wxScrollEvent& event);
         void OnVCButtonClick(wxCommandEvent& event);

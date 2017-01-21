@@ -173,9 +173,6 @@ void FireEffect::Render(Effect *effect, const SettingsMap &SettingsMap, RenderBu
     HSVValue hsv;
     int loc = GetLocation(SettingsMap.Get("CHOICE_Fire_Location", "Bottom"));
 
-    if (candle) {
-        
-    }
     if (withMusic)
     {
         HeightPct = 10;
@@ -271,6 +268,30 @@ void FireEffect::Render(Effect *effect, const SettingsMap &SettingsMap, RenderBu
         }
     }
     
+    if (candle) {
+        // calculate the hue color
+        if (HueShift<=0) {
+            HueShift=1;
+        }
+        hsv = FirePalette[GetFireBuffer(0,0, cache->FireBuffer, maxWi, maxHt)];
+        hsv.hue = hsv.hue +(HueShift/100.0);
+        if (hsv.hue>1.0){
+            hsv.hue=1.0;
+        }
+//        hsv.saturation = rand()+(HeightPct/100);
+        xlColor c = hsv;
+        HSLValue hsl = c;
+        hsl.lightness =rand()+(HeightPct/100);
+        c= hsl;
+        // set every node to color in buffer
+        for (x = 0; x < buffer.BufferWi; x++) {
+            for (y = 0; y < buffer.BufferHt; y++) {
+                    buffer.SetPixel(x, y, c);
+            }
+        }
+        return;
+    }
+
     //  Now play fire
     for (y=0; y<maxHt; y++)
     {

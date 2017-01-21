@@ -34,7 +34,7 @@ const long FirePanel::ID_TEXTCTRL_Fire_GrowthCycles = wxNewId();
 const long FirePanel::ID_BITMAPBUTTON_CHECKBOX_Fire_GrowFire = wxNewId();
 const long FirePanel::ID_CHECKBOX_Fire_GrowWithMusic = wxNewId();
 const long FirePanel::ID_BITMAPBUTTON_Fire_GrowWithMusic = wxNewId();
-const long FirePanel::ID_CHECKBOX_CheckBox_Fire_Candle = wxNewId();
+const long FirePanel::ID_CHECKBOX_Fire_Candle = wxNewId();
 const long FirePanel::ID_BITMAPBUTTON_CheckBox_Fire_Candle = wxNewId();
 const long FirePanel::ID_CHOICE_Fire_Location = wxNewId();
 //*)
@@ -52,7 +52,6 @@ FirePanel::FirePanel(wxWindow* parent)
 	wxStaticText* StaticText30;
 	wxFlexGridSizer* FlexGridSizer3;
 	wxFlexGridSizer* FlexGridSizer2;
-	wxTextCtrl* TextCtrl20;
 	wxFlexGridSizer* FlexGridSizer1;
 
 	Create(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, _T("wxID_ANY"));
@@ -82,9 +81,9 @@ FirePanel::FirePanel(wxWindow* parent)
 	BitmapButton_Fire_HueShiftVC = new ValueCurveButton(this, ID_VALUECURVE_Fire_HueShift, valuecurvenotselected_24, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxNO_BORDER, wxDefaultValidator, _T("ID_VALUECURVE_Fire_HueShift"));
 	FlexGridSizer2->Add(BitmapButton_Fire_HueShiftVC, 1, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 0);
 	FlexGridSizer38->Add(FlexGridSizer2, 1, wxALL|wxEXPAND, 0);
-	TextCtrl20 = new wxTextCtrl(this, IDD_TEXTCTRL_Fire_HueShift, _("0"), wxDefaultPosition, wxDLG_UNIT(this,wxSize(20,-1)), 0, wxDefaultValidator, _T("IDD_TEXTCTRL_Fire_HueShift"));
-	TextCtrl20->SetMaxLength(3);
-	FlexGridSizer38->Add(TextCtrl20, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 2);
+	TextCtrl_Fire_HueShift = new wxTextCtrl(this, IDD_TEXTCTRL_Fire_HueShift, _("0"), wxDefaultPosition, wxDLG_UNIT(this,wxSize(20,-1)), 0, wxDefaultValidator, _T("IDD_TEXTCTRL_Fire_HueShift"));
+	TextCtrl_Fire_HueShift->SetMaxLength(3);
+	FlexGridSizer38->Add(TextCtrl_Fire_HueShift, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 2);
 	BitmapButton_FireWidth = new wxBitmapButton(this, ID_BITMAPBUTTON_SLIDER_Fire_HueShift, padlock16x16_blue_xpm, wxDefaultPosition, wxSize(13,13), wxBU_AUTODRAW|wxNO_BORDER, wxDefaultValidator, _T("ID_BITMAPBUTTON_SLIDER_Fire_HueShift"));
 	BitmapButton_FireWidth->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_ACTIVECAPTION));
 	FlexGridSizer38->Add(BitmapButton_FireWidth, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 1);
@@ -112,7 +111,7 @@ FirePanel::FirePanel(wxWindow* parent)
 	BitmapButton_Fire_GrowWithMusic->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_ACTIVECAPTION));
 	FlexGridSizer38->Add(BitmapButton_Fire_GrowWithMusic, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 1);
 	FlexGridSizer38->Add(-1,-1,1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-	CheckBox_Fire_Candle = new wxCheckBox(this, ID_CHECKBOX_CheckBox_Fire_Candle, _("Candle"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX_CheckBox_Fire_Candle"));
+	CheckBox_Fire_Candle = new wxCheckBox(this, ID_CHECKBOX_Fire_Candle, _("Candle"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX_Fire_Candle"));
 	CheckBox_Fire_Candle->SetValue(false);
 	FlexGridSizer38->Add(CheckBox_Fire_Candle, 1, wxALL|wxEXPAND, 5);
 	FlexGridSizer38->Add(-1,-1,1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -145,7 +144,7 @@ FirePanel::FirePanel(wxWindow* parent)
 	Connect(ID_BITMAPBUTTON_CHECKBOX_Fire_GrowFire,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&FirePanel::OnLockButtonClick);
 	Connect(ID_CHECKBOX_Fire_GrowWithMusic,wxEVT_COMMAND_CHECKBOX_CLICKED,(wxObjectEventFunction)&FirePanel::OnCheckBox_Fire_GrowWithMusicClick);
 	Connect(ID_BITMAPBUTTON_Fire_GrowWithMusic,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&FirePanel::OnLockButtonClick);
-	Connect(ID_CHECKBOX_CheckBox_Fire_Candle,wxEVT_COMMAND_CHECKBOX_CLICKED,(wxObjectEventFunction)&FirePanel::OnCheckBox_Fire_GrowWithMusicClick);
+	Connect(ID_CHECKBOX_Fire_Candle,wxEVT_COMMAND_CHECKBOX_CLICKED,(wxObjectEventFunction)&FirePanel::OnCheckBox_Fire_Candle);
 	Connect(ID_BITMAPBUTTON_CheckBox_Fire_Candle,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&FirePanel::OnLockButtonClick);
 	//*)
 
@@ -170,16 +169,13 @@ void FirePanel::OnCheckBox_Fire_GrowWithMusicClick(wxCommandEvent& event)
 {
     ValidateWindow();
 }
+void FirePanel::OnCheckBox_Fire_Candle(wxCommandEvent& event)
+{
+    ValidateWindow();
+}
 
 void FirePanel::ValidateWindow()
 {
-    // maybe this could potentially use all these sliders
-//    if (CheckBox_Fire_Candle->GetValue()) {
-//        Slider_Fire_Height->Disable();
-//        Slider_Fire_GrowthCycles->Disable();
-//        CheckBox_Fire_GrowWithMusic->Disable();
-//    }
-//    else
     if (CheckBox_Fire_GrowWithMusic->GetValue())
     {
         Slider_Fire_Height->Disable();

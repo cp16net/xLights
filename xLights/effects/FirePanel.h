@@ -62,8 +62,8 @@ class FirePanel: public wxPanel
 		static const long ID_BITMAPBUTTON_CHECKBOX_Fire_GrowFire;
 		static const long ID_CHECKBOX_Fire_GrowWithMusic;
 		static const long ID_BITMAPBUTTON_Fire_GrowWithMusic;
-		static const long ID_CHECKBOX1;
-		static const long ID_BITMAPBUTTON1;
+        static const long ID_CHECKBOX_CheckBox_Fire_Candle;
+        static const long ID_BITMAPBUTTON_CheckBox_Fire_Candle;
 		static const long ID_CHOICE_Fire_Location;
 		//*)
 

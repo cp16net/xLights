@@ -155,6 +155,7 @@ void FireEffect::SetDefaultParameters(Model *cls) {
     SetSliderValue(fp->Slider_Fire_GrowthCycles, 0);
 
     SetCheckBoxValue(fp->CheckBox_Fire_GrowWithMusic, false);
+    SetCheckBoxValue(fp->CheckBox_Fire_Candle, false);
 }
 
 // 10 <= HeightPct <= 100
@@ -165,11 +166,16 @@ void FireEffect::Render(Effect *effect, const SettingsMap &SettingsMap, RenderBu
     int HueShift = GetValueCurveInt("Fire_HueShift", 0, SettingsMap, offset);
     float cycles = GetValueCurveDouble("Fire_GrowthCycles", 0.0f, SettingsMap, offset);
     bool withMusic = SettingsMap.GetBool("CHECKBOX_Fire_GrowWithMusic", false);
+    bool candle = SettingsMap.GetBool("CHECKBOX_Fire_Candle", false);
+
 
     int x,y,r,v1,v2,v3,v4,n,new_index;
     HSVValue hsv;
     int loc = GetLocation(SettingsMap.Get("CHOICE_Fire_Location", "Bottom"));
 
+    if (candle) {
+        
+    }
     if (withMusic)
     {
         HeightPct = 10;
